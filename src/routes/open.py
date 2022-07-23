@@ -10,12 +10,7 @@ routes = web.RouteTableDef()
 
 @routes.get('')
 async def main(request: web.Request):
-    with open('static/templates/main.html', 'r', encoding='utf-8') as file:
-        return web.Response(
-            text=file.read(),
-            content_type='text/html',
-            status=200
-        )
+    return web.Response(text='Напиши боту в ЛС для регистрации', status=200)
 
 
 @routes.get('/registration/{user_id}')
