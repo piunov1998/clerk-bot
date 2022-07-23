@@ -59,7 +59,11 @@ async def on_ready():
 async def on_message(message: discord.Message):
     if isinstance(message.channel, discord.DMChannel):
         if not message.author.bot:
-            await message.channel.send('Обожди, скоро все будет')
+            await message.channel.send(
+                f'Если хочешь присоединиться к нашей ССР, заполни '
+                f'небольшую форму по адресу '
+                f'http://localhost/registration/{message.author.id}'
+            )
     else:
         await bot.process_commands(message)
 
