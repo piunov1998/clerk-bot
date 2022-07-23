@@ -4,13 +4,22 @@
     <title>Список ролей</title>
 </head>
 <body>
-<h3>Выберите роль</h3>
+<input id="last" type="text" placeholder="Фамилия">
+<input id="first" type="text" placeholder="Имя">
+<input id="middle" type="text" placeholder="Отчество">
+<input id="nick" type="text" placeholder="Желаемое прозвище">
+<input id="citizenship" type="text" placeholder="Гражданство">
+<input id="nation" type="text" placeholder="Национальность">
+
+<label>Выберите роль</label>
 <select id="roles"></select>
+<button id="submit">Отправить</button>
+
 <script language="JavaScript">
     let list = document.getElementById('roles')
     xhr = new XMLHttpRequest()
     xhr.responseType = 'json'
-    xhr.open("GET", "bot/api/roles")
+    xhr.open("GET", "../bot/api/roles")
 
     xhr.onload = () => {
 
@@ -25,5 +34,24 @@
         }
     }
     xhr.send()
+
+    submit = document.getElementById('submit')
+    submit.onclick = function () {
+        xhr = new XMLHttpRequest()
+        xhr.open("POST", window.location.pathname.split('/').slice(-1)[0])
+        xhr.onload = () => {
+            if (xhr.status === 201) {
+                alert('Заявка подана')
+            }
+        }
+        data = {
+            lastname: document.getElementById('last').value,
+            firstname: document.getElementById('first').value,
+            middlename: document.getElementById('middle').value,
+            wonder_nick: document.getElementById('nick').value,
+            wonder_role: document.getElementById('roles').value
+        }
+        xhr.send(JSON.stringify(data))
+    }
 </script>
 </body>

@@ -7,7 +7,7 @@ from discord.ext import commands
 
 from injectors import ActivitiesInj
 from config import config
-from routes.api import routes
+from routes import api_routes, open_routes
 
 
 def setup_logging():
@@ -31,7 +31,8 @@ activities_ = ActivitiesInj(bot)
 async def run():
 
     app = web.Application()
-    app.add_routes(routes)
+    app.add_routes(api_routes)
+    app.add_routes(open_routes)
 
     runner = web.AppRunner(app)
     await runner.setup()
