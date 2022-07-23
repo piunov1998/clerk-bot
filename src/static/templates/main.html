@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Список ролей</title>
+</head>
+<body>
+<h3>Выберите роль</h3>
+<select id="roles"></select>
+<script language="JavaScript">
+    let list = document.getElementById('roles')
+    xhr = new XMLHttpRequest()
+    xhr.responseType = 'json'
+    xhr.open("GET", "bot/api/roles")
+
+    xhr.onload = () => {
+
+        if (xhr.status === 200) {
+            let roles = xhr.response
+            for (role of roles) {
+                opt = document.createElement('option')
+                opt.value = role.id
+                opt.innerText = role.name
+                list.appendChild(opt)
+            }
+        }
+    }
+    xhr.send()
+</script>
+</body>
