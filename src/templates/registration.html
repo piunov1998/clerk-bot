@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Список ролей</title>
+</head>
+<body>
+<ol style="line-height: 2">
+    <li><input id="last" type="text" placeholder="Фамилия"></li>
+    <li><input id="first" type="text" placeholder="Имя"></li>
+    <li><input id="middle" type="text" placeholder="Отчество"></li>
+    <li><input id="nick" type="text" placeholder="Желаемое прозвище"></li>
+    <li><input id="religion" type="text" placeholder="Вероисповедание"></li>
+    <li><input id="nation" type="text" placeholder="Национальность"></li>
+    <li><input id="birth_date" type="date"></li>
+    <li>Пол: <select id="sex">
+        <option value="male">Муж.</option>
+        <option value="female">Не муж.</option>
+    </select></li>
+    <li><label>Желаемая должность: </label><select id="roles"></select></li>
+</ol>
+<button id="submit" onclick="post_form()">Отправить</button>
+
+<script src="../static/scripts/get_roles.js"></script>
+<script src="../static/scripts/send.js"></script>
+</body>

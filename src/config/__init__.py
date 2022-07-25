@@ -28,8 +28,7 @@ class DiscordConfig:
 
     token: str = dc.field()
     prefix: str = dc.field()
-    server_info: DiscordServer = dc.field()
-    locale: t.Literal['ru-RU', 'en_EN'] = dc.field(default='ru-RU')
+    guild_info: DiscordServer = dc.field()
 
 
 @dc.dataclass
@@ -37,6 +36,7 @@ class Config:
 
     pg: PGConfig = dc.field()
     discord: DiscordConfig = dc.field()
+    host: str = dc.field()
 
 
 with open('../config.yaml', 'r') as file:

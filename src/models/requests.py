@@ -1,19 +1,33 @@
-import enum
 import dataclasses as dc
+import enum
 import typing as t
 from datetime import datetime
 
 import sqlalchemy as sa
-from sqlalchemy.orm import relation
+from pydantic import BaseModel
+from sqlalchemy.dialects.postgresql import JSONB
 
 from .orm import BaseOrm
 
 
 class RequestStatus(enum.auto):
-
     accepted = 'принята'
     pending = 'в обработке'
     in_write = 'не подана'
+
+
+class RequestDataValidator(BaseModel):
+    """Параметры заявки"""
+
+    firstname: str | None
+    lastname: str | None
+    middlename: str | None
+    religion: str | None
+    nation: str | None
+    wonder_nick: str | None
+    wonder_role: int | None
+    sex: t.Literal['male', 'female']
+    birth_date: int | None
 
 
 class RequestData(t.TypedDict):
@@ -64,7 +78,7 @@ class Request(BaseOrm):
     })
 
     data: t.Optional[RequestData] = dc.field(default=None, metadata={
-        'sa': sa.Column(sa.JSON)
+        'sa': sa.Column(JSONB)
     })
 
     date: datetime = dc.field(default_factory=datetime, metadata={

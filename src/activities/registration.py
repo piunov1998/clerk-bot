@@ -1,14 +1,14 @@
 import random
 import string
-from hashlib import md5
 from datetime import datetime
+from hashlib import md5
 
 import discord
-from discord import Embed
 import sqlalchemy as sa
+from discord import Embed
 
+from models import Request, RequestDataValidator, User
 from .base import BaseDiscordOperator
-from models import Request, RequestData, User
 
 
 class Registration(BaseDiscordOperator):
@@ -56,7 +56,7 @@ class Registration(BaseDiscordOperator):
         """Получить заявку по id или id пользователя"""
 
         if user_id is None and request_id is None or \
-           user_id is not None and request_id is not None:
+                user_id is not None and request_id is not None:
             raise AttributeError('Должен быть укзаан лишь один из параметров')
 
         if request_id is not None:
@@ -66,27 +66,42 @@ class Registration(BaseDiscordOperator):
                 sa.select(Request).filter(Request.user == user_id)
             ).scalar_one_or_none()
 
-    def update_request(self, request: Request, data: RequestData) -> Request:
+    def update_request(
+            self,
+            request: Request,
+            data: RequestDataValidator
+    ) -> Request:
         """Изменение заявки"""
 
         with self._pg.begin():
             request.data = data
         return request
 
-    async def registration(self, data: RequestData):
+    async def registration(self, user_id: int, data: RequestDataValidator):
         """Обработка персональных данных"""
 
         admins: list[discord.User]
         admins = [self._bot.get_user(id_) for id_ in self._config.admins_ids]
 
+        request = self.get_request(user_id=user_id)
+        user: discord.User = self._bot.get_user(user_id)
+        with self._pg.begin():
+            request.data = data.dict()
+
         embed = Embed()
-        embed.title = f'**Заявка на вступление №{random.randint(0, 9999):0>4}**'
-        blank = f'**Фамилия**: {data.get("lastname")}\n' \
-                f'**Имя**: {data.get("firstname")}\n' \
-                f'**Очество**: {data.get("middlename")}\n' \
-                f'**Возраст**: {data.get("age")}\n' \
-                f'**Желаемое прозвище**: {data.get("wonder_nick")}\n' \
-                f'**Желаемая роль**: {data.get("wonder_role")}'
+        birth_date = datetime.fromtimestamp(data.birth_date / 1000).isoformat()
+        embed.title = f'**Заявка на вступление №{request.id:0>4}**'
+        blank = \
+            f'**Пользователь**: {user.display_name}#{user.discriminator}\n' \
+            f'**Фамилия**: {data.lastname}\n' \
+            f'**Имя**: {data.firstname}\n' \
+            f'**Отчество**: {data.middlename}\n' \
+            f'**Дата рождения**: {birth_date}\n' \
+            f'**Пол**: {data.sex}\n' \
+            f'**Национальность**: {data.nation}\n' \
+            f'**Вероисповедание**: {data.religion}\n' \
+            f'**Желаемое прозвище**: {data.wonder_nick}\n' \
+            f'**Желаемая должность**: {data.wonder_role}'
 
         embed.description = blank
         embed.colour = discord.Color.blue()

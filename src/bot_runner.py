@@ -1,14 +1,16 @@
-import logging
 import asyncio
+import logging
 
+import aiohttp_jinja2
 import discord
+import jinja2
 from aiohttp import web
 from discord.ext import commands
 
-from injectors import ActivitiesInj, connections
 from config import config
-from routes import api_routes, open_routes
+from injectors import ActivitiesInj, connections
 from models import RequestStatus
+from routes import api_routes, open_routes
 
 
 def setup_logging():
@@ -30,10 +32,13 @@ activities_ = ActivitiesInj(bot)
 
 
 async def run():
-
     app = web.Application()
+
+    app.add_routes([web.static('/static', 'static')])
     app.add_routes(api_routes)
     app.add_routes(open_routes)
+
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('templates'))
 
     runner = web.AppRunner(app)
     await runner.setup()
@@ -69,7 +74,7 @@ async def process_dm(message: discord.Message):
         await message.channel.send(
             f'Если хочешь присоединиться к нашей ССР, заполни '
             f'небольшую форму по адресу '
-            f'http://localhost/registration/{message.author.id}'
+            f'http://{config.host}/registration/{message.author.id}'
         )
     else:
         if request.data and request.sign_date:
@@ -81,7 +86,7 @@ async def process_dm(message: discord.Message):
         else:
             status = RequestStatus.in_write
             ps = f'\nЗаполните регистрационный бланк по ссылке:\n' \
-                 f'http://localhost/registration/{message.author.id}'
+                 f'http://{config.host}/registration/{message.author.id}'
         response = \
             f'Для вас уже была создана заявка **№{request.id:0>4}**.\n' \
             f'**Статус заявки:** "{status}"{ps}'
