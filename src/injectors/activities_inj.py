@@ -2,6 +2,7 @@ from discord.ext.commands import Bot
 
 from config import config
 from activities import Messaging, Roles, Registration
+from .connections import acquire_session
 
 
 class ActivitiesInj:
@@ -11,10 +12,22 @@ class ActivitiesInj:
         self._bot = bot
 
     def messaging(self) -> Messaging:
-        return Messaging(self._bot, config.discord.server_info)
+        return Messaging(
+            bot=self._bot,
+            config=config.discord.server_info,
+            pg_connection=acquire_session()
+        )
 
     def roles(self) -> Roles:
-        return Roles(self._bot, config.discord.server_info)
+        return Roles(
+            bot=self._bot,
+            config=config.discord.server_info,
+            pg_connection=acquire_session()
+        )
 
     def registration(self) -> Registration:
-        return Registration(self._bot, config.discord.server_info)
+        return Registration(
+            bot=self._bot,
+            config=config.discord.server_info,
+            pg_connection=acquire_session()
+        )

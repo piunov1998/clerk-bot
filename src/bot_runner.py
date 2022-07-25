@@ -5,9 +5,10 @@ import discord
 from aiohttp import web
 from discord.ext import commands
 
-from injectors import ActivitiesInj
+from injectors import ActivitiesInj, connections
 from config import config
 from routes import api_routes, open_routes
+from models import RequestStatus
 
 
 def setup_logging():
@@ -53,17 +54,45 @@ async def run():
 @bot.event
 async def on_ready():
     logging.info('Connected')
+    connections.init_db()
+    logging.info('DB inited')
+
+
+async def process_dm(message: discord.Message):
+    if message.author.bot:
+        return
+    act = ActivitiesInj(bot)
+    request = act.registration().get_request(user_id=message.author.id)
+    if request is None:
+        act.registration().add_user(message.author.id)
+        act.registration().create_request(message.author.id)
+        await message.channel.send(
+            f'Если хочешь присоединиться к нашей ССР, заполни '
+            f'небольшую форму по адресу '
+            f'http://localhost/registration/{message.author.id}'
+        )
+    else:
+        if request.data and request.sign_date:
+            status = RequestStatus.accepted
+            ps = '\nПроходите и не мешайтесь.'
+        elif request.data and request.sign_date is None:
+            status = RequestStatus.pending
+            ps = '\nПрисядьте, подождите, скоро вас пригласят.'
+        else:
+            status = RequestStatus.in_write
+            ps = f'\nЗаполните регистрационный бланк по ссылке:\n' \
+                 f'http://localhost/registration/{message.author.id}'
+        response = \
+            f'Для вас уже была создана заявка **№{request.id:0>4}**.\n' \
+            f'**Статус заявки:** "{status}"{ps}'
+
+        await message.channel.send(response)
 
 
 @bot.event
 async def on_message(message: discord.Message):
     if isinstance(message.channel, discord.DMChannel):
-        if not message.author.bot:
-            await message.channel.send(
-                f'Если хочешь присоединиться к нашей ССР, заполни '
-                f'небольшую форму по адресу '
-                f'http://localhost/registration/{message.author.id}'
-            )
+        await process_dm(message)
     else:
         await bot.process_commands(message)
 

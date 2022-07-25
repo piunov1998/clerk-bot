@@ -5,3 +5,10 @@ services:
     image: clerk
     ports:
       - "80:5555"
+
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432

@@ -1,5 +1,6 @@
 import discord
 from discord.ext.commands import Bot
+from sqlalchemy.orm import Session
 
 from config import DiscordServer
 
@@ -7,9 +8,10 @@ from config import DiscordServer
 class BaseDiscordOperator:
     """Класс с базовыми операциями с дискордом"""
 
-    def __init__(self, bot: Bot, config: DiscordServer):
+    def __init__(self, bot: Bot, config: DiscordServer, pg_connection: Session):
         self._bot = bot
         self._config = config
+        self._pg = pg_connection
 
     async def send_msg(
             self, chat_id: int,
