@@ -9,6 +9,7 @@ from discord import Embed
 
 from models import Request, RequestDataValidator, User
 from .base import BaseDiscordOperator
+from .roles import Roles
 
 
 class Registration(BaseDiscordOperator):
@@ -80,28 +81,51 @@ class Registration(BaseDiscordOperator):
     async def registration(self, user_id: int, data: RequestDataValidator):
         """Обработка персональных данных"""
 
-        admins: list[discord.User]
-        admins = [self._bot.get_user(id_) for id_ in self._config.admins_ids]
-
         request = self.get_request(user_id=user_id)
         user: discord.User = self._bot.get_user(user_id)
         with self._pg.begin():
             request.data = data.dict()
+        birth_date = datetime.fromtimestamp(data.birth_date / 1000).isoformat()
+
+        sex = {
+            'male': 'мужской',
+            'female': 'женский'
+        }
+
+        role = Roles(
+            self._bot, self._config, self._pg
+        ).get_role(data.wonder_role)
+
+        formatted = {
+            'Пользователь': f'{user.display_name}#{user.discriminator}',
+            'Фамилия': data.lastname,
+            'Имя': data.firstname,
+            'Отчество': data.middlename,
+            'Дата рождения': birth_date,
+            'Пол': sex.get(data.sex, data.sex),
+            'Национальность': data.nation,
+            'Вероисповедание': data.religion,
+            'Желаемое прозвище': data.wonder_nick,
+            'Желаемая должность': role.name
+        }
+
+        await self.notice_admins(
+            title=f'**Заявка на вступление №{request.id:0>4}**',
+            data=formatted
+        )
+
+    async def notice_admins(self, title: str, data: dict):
+        """Уведомить админов"""
+
+        admins: list[discord.User]
+        admins = [self._bot.get_user(id_) for id_ in self._config.admins_ids]
 
         embed = Embed()
-        birth_date = datetime.fromtimestamp(data.birth_date / 1000).isoformat()
-        embed.title = f'**Заявка на вступление №{request.id:0>4}**'
-        blank = \
-            f'**Пользователь**: {user.display_name}#{user.discriminator}\n' \
-            f'**Фамилия**: {data.lastname}\n' \
-            f'**Имя**: {data.firstname}\n' \
-            f'**Отчество**: {data.middlename}\n' \
-            f'**Дата рождения**: {birth_date}\n' \
-            f'**Пол**: {data.sex}\n' \
-            f'**Национальность**: {data.nation}\n' \
-            f'**Вероисповедание**: {data.religion}\n' \
-            f'**Желаемое прозвище**: {data.wonder_nick}\n' \
-            f'**Желаемая должность**: {data.wonder_role}'
+
+        embed.title = title
+        blank = ''
+        for key, value in data.items():
+            blank += f'**{key}**: {value}\n'
 
         embed.description = blank
         embed.colour = discord.Color.blue()

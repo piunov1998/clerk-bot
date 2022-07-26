@@ -1,14 +1,13 @@
 from aiohttp import web
 
-from injectors import ActivitiesInj
 from formatters.json_fmt import json_dumps
-
+from injectors import ActivitiesInj
 
 prefix = '/bot/api'
 routes = web.RouteTableDef()
 
 
-@routes.get(f'{prefix}/announce')
+@routes.post(f'{prefix}/announce')
 async def announce(request: web.Request):
     msg = request.query.get('msg')
     if msg is None:

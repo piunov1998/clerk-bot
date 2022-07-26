@@ -1,3 +1,4 @@
+import discord
 from discord import Guild
 
 from .base import BaseDiscordOperator
@@ -14,8 +15,15 @@ class Roles(BaseDiscordOperator):
         for role in guild.roles:
             if role.hoist:
                 roles.append({
-                    'id': role.id,
+                    'id': str(role.id),
                     'name': role.name
                 })
         return roles
 
+    def get_role(self, role_id: int) -> discord.Role:
+        """Получить роль по id"""
+
+        guild: Guild = self._bot.get_guild(self._config.guild_id)
+        for role in guild.roles:
+            if role.id == role_id:
+                return role
