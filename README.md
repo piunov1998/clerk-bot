@@ -12,9 +12,10 @@ pg:
 discord:
   token: "your-token"
   prefix: ">"
-  locale: "ru-RU"
-  server_info:
+  guild_info:
     info_channel: 623912261768970251
     guild_id: 358780693595291652
     admins_ids: [336367172744118274]
+
+host: localhost
 ```
