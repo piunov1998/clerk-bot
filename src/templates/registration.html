@@ -1,25 +1,85 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Список ролей</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<title>Прибытие в ССР Аниарку</title>
 </head>
 <body>
-<ol style="line-height: 2">
-    <li><input id="last" type="text" placeholder="Фамилия"></li>
-    <li><input id="first" type="text" placeholder="Имя"></li>
-    <li><input id="middle" type="text" placeholder="Отчество"></li>
-    <li><input id="nick" type="text" placeholder="Желаемое прозвище"></li>
-    <li><input id="religion" type="text" placeholder="Вероисповедание"></li>
-    <li><input id="nation" type="text" placeholder="Национальность"></li>
-    <li><input id="birth_date" type="date"></li>
-    <li>Пол: <select id="sex">
-        <option value="male">Муж.</option>
-        <option value="female">Не муж.</option>
-    </select></li>
-    <li><label>Желаемая должность: </label><select id="roles"></select></li>
-</ol>
-<button id="submit" onclick="post_form()">Отправить</button>
+<form class="blank">
+	<h2>Добро пожаловать на ССР Аниарку!
+		<br>
+	</h2>
+	<h3>
+		Перед пересечением границы необходимо заполнить регистрационный бланк.
+		<br>
+		Слава Аниарку!
+	</h3>
+	<br>
+	<br>
+	<br>
+	<label class="blank-p">Заполните Ваши персональные данные.</label>
+	<br>
+	<p>
+		<label class="category-head">ФИО</label>
+		<br>
+		<input id="lastname" class="data-input" type="text" name="lastname"
+			   placeholder="Фамилия">
+		<br>
+		<input id="firstname" class="data-input" type="text" name="firstname"
+			   placeholder="Имя">
+		<br>
+		<input id="middlename" class="data-input" type="text" name="middlename"
+			   placeholder="Отчество">
+	</p>
+	<p>
+		<label class="category-head">Самоидентичность</label>
+		<br>
+		<input id="nation" class="data-input" type="text" name="nation"
+			   placeholder="Национальность">
+		<br>
+		<input id="religion" class="data-input" type="text" name="religion"
+			   placeholder="Вероисповедание">
+	</p>
+	<p>
 
-<script src="../static/scripts/get_roles.js"></script>
-<script src="../static/scripts/send.js"></script>
+	</p>
+	<label class="category-head">Пожелания</label>
+	<br>
+	<input id="nickname" class="data-input" type="text" name="nickname"
+		   placeholder="Желаемое прозвище">
+	<br>
+	<br>
+	<label class="under-category-head">Желаемая роль</label>
+	<select id="select-role">
+		<option class="select-role" value="role-rab">Работяга</option>
+		<option class="select-role" value="role-CPSU">КПСС</option>
+	</select>
+	<p>
+		<label class="category-head">Пол</label>
+	<div class="radio-sex">
+		<input id="sex-male" type="radio" name="sex" value="male">
+		<label for="sex-male"> Мужской </label>
+	</div>
+	/
+	<div class="radio-sex">
+		<input id="sex-female" type="radio" name="sex" value="female">
+		<label for="sex-female"> Женский </label>
+	</div>
+	</p>
+	<p>
+		<label class="category-head">Дата рождения</label>
+		<br>
+		<input id="birthday" class="input-date" type="date" name="birthday">
+	</p>
+	<p>
+		<button onclick="SendData()">
+			<label>Отправить</label>
+		</button>
+	</p>
+</form>
+
+<script src="../static/javascript/dataSend.js"></script>
+<script src="../static/javascript/roleLoad.js"></script>
+
 </body>
+</html>
