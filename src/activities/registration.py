@@ -136,3 +136,10 @@ class Registration(BaseDiscordOperator):
             else:
                 chat: discord.DMChannel = admin.dm_channel
             await self.send_msg(chat.id, embed)
+
+    def get_user_by_login(self, login: str) -> User:
+        """Получение пользователя из PG по логину"""
+
+        return self._pg.execute(
+            sa.select(User).filter(User.login == login)
+        ).scalar_one_or_none()

@@ -8,6 +8,6 @@ def json_dumps(*args, **kwargs) -> str:
 
 class JsonDump(json.JSONEncoder):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.ensure_ascii = False

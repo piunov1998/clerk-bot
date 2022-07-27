@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="../static/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="../static/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64"
+          href="../static/icons/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="120x120"
+          href="../static/icons/favicon-120.png">
+    <style>
+        .auth_window {
+            text-align: center;
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 2px solid black;
+            border-radius: 15px;
+            display: block;
+            padding: 15px;
+        }
+
+        .auth_window div {
+            margin: auto;
+            line-height: 2;
+        }
+    </style>
+</head>
+<body>
+<div class="auth_window">
+    <div style="margin-top: 10%"><label>Авторизация</label></div>
+    <div><input id="login" placeholder="Логин"></div>
+    <div><input id="password" type="password" placeholder="Пароль"></div>
+    <div>
+        <button type="submit" onclick="sendCredentials()">Войти</button>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+<script>
+    function sendCredentials() {
+        let login = document.getElementById('login').value
+        let pass = document.getElementById('password').value
+
+        let xhr = new XMLHttpRequest()
+        xhr.open('POST', 'login')
+
+        xhr.onload = () => {
+            if (xhr.status === 201) {
+                window.location.href = 'adminka'
+            } else {
+                alert('Ошибка авторизации')
+            }
+        }
+        let data = {
+            login: login,
+            password: CryptoJS.MD5(pass).toString()
+        }
+        xhr.send(JSON.stringify(data))
+    }
+</script>
+</body>
+</html>

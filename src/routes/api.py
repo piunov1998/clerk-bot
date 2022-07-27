@@ -1,13 +1,15 @@
 from aiohttp import web
 
 from formatters.json_fmt import json_dumps
-from injectors import ActivitiesInj
+from injectors import ActivitiesInj, auth
 
 prefix = '/bot/api'
 routes = web.RouteTableDef()
+auth = auth()
 
 
 @routes.post(f'{prefix}/announce')
+@auth.check_auth
 async def announce(request: web.Request):
     msg = request.query.get('msg')
     if msg is None:
