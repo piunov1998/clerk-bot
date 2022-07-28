@@ -28,6 +28,8 @@ class DiscordConfig:
 
     token: str = dc.field()
     prefix: str = dc.field()
+    api_url: str = dc.field()
+    application_id: int = dc.field()
     guild_info: DiscordServer = dc.field()
 
 

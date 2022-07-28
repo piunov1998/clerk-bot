@@ -1,7 +1,8 @@
-from .requests import (
+from .database import (
     User,
     Request,
     RequestData,
     RequestStatus,
-    RequestDataValidator
+    RequestDataValidator,
+    Credits
 )

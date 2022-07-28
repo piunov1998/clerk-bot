@@ -9,6 +9,7 @@ from discord.ext import commands
 
 from config import config
 from injectors import ActivitiesInj, connections
+from bot.interactions import InteractionsProcessor
 from models import RequestStatus
 from routes import api_routes, open_routes
 
@@ -29,6 +30,7 @@ bot = commands.Bot(
     intents=discord.Intents().all()
 )
 activities_ = ActivitiesInj(bot)
+interactions = InteractionsProcessor(bot, activities_, config.discord)
 
 
 async def run():
@@ -61,6 +63,8 @@ async def on_ready():
     logging.info('Connected')
     connections.init_db()
     logging.info('DB inited')
+    await interactions.set_up_commands()
+    logging.info('Commands set up')
 
 
 async def process_dm(message: discord.Message):
@@ -105,6 +109,7 @@ async def on_message(message: discord.Message):
 if __name__ == '__main__':
     setup_logging()
     logging.info('Connecting to gateway')
-
+    listener = interactions.interaction_listener
+    bot._connection.parsers['INTERACTION_CREATE'] = listener  # noqa
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run())

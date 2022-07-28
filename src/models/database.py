@@ -94,5 +94,24 @@ class Request(BaseOrm):
     })
 
 
+@dc.dataclass
+class Credits(BaseOrm):
+    """Модель социальных кредитов"""
+
+    __tablename__ = 'credits'
+    __table_args__ = {'schema': 'userdata'}
+
+    user_id: int = dc.field(metadata={
+        'sa': sa.Column(sa.BIGINT, sa.ForeignKey(
+            'userdata.users.id', onupdate='CASCADE', ondelete='CASCADE'
+        ), primary_key=True, unique=True)
+    })
+
+    total: int = dc.field(metadata={
+        'sa': sa.Column(sa.Integer)
+    })
+
+
 BaseOrm.REGISTRY.mapped(User)
 BaseOrm.REGISTRY.mapped(Request)
+BaseOrm.REGISTRY.mapped(Credits)

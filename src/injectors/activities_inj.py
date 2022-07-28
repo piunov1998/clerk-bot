@@ -1,6 +1,6 @@
 from discord.ext.commands import Bot
 
-from activities import Messaging, Roles, Registration
+from activities import Messaging, Roles, Registration, CreditsService
 from config import config
 from .connections import acquire_session
 
@@ -27,6 +27,13 @@ class ActivitiesInj:
 
     def registration(self) -> Registration:
         return Registration(
+            bot=self._bot,
+            config=config.discord.guild_info,
+            pg_connection=acquire_session()
+        )
+
+    def credits_service(self) -> CreditsService:
+        return CreditsService(
             bot=self._bot,
             config=config.discord.guild_info,
             pg_connection=acquire_session()
