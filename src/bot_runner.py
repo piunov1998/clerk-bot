@@ -7,9 +7,9 @@ import jinja2
 from aiohttp import web
 from discord.ext import commands
 
+from bot.interactions import InteractionsProcessor
 from config import config
 from injectors import ActivitiesInj, connections
-from bot.interactions import InteractionsProcessor
 from models import RequestStatus
 from routes import api_routes, open_routes
 
@@ -96,6 +96,13 @@ async def process_dm(message: discord.Message):
             f'**Статус заявки:** "{status}"{ps}'
 
         await message.channel.send(response)
+
+
+@bot.command(hidden=True)
+@commands.is_owner()
+async def fill_db(ctx):
+    await activities_.roles().add_members_to_db()
+    await ctx.send('Ready')
 
 
 @bot.event
