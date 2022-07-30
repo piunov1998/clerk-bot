@@ -2,89 +2,88 @@
 <html>
 <head>
 	<link rel="stylesheet" href="../static/css/style.css">
-	<link rel="icon" type="image/png" sizes="16x16"
-		  href="../static/icons/favicon-16.png">
-	<link rel="icon" type="image/png" sizes="32x32"
-		  href="../static/icons/favicon-32.png">
-	<link rel="icon" type="image/png" sizes="64x64"
-		  href="../static/icons/favicon-64.png">
-	<link rel="icon" type="image/png" sizes="120x120"
-		  href="../static/icons/favicon-120.png">
 	<title>Прибытие в ССР Аниарку</title>
+	<link rel="icon" type="image/png" sizes="16x16"
+		href="../static/icons/favicon-16.png">
+	<link rel="icon" type="image/png" sizes="32x32"
+		href="../static/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="64x64"
+		href="../static/icons/favicon-64.png">
+	<link rel="icon" type="image/png" sizes="120x120"
+		href="../static/icons/favicon-120.png">
 </head>
 <body>
-<div class="blank">
-	<h2>Добро пожаловать на ССР Аниарку!
-		<br>
-	</h2>
-	<h3>
-		Перед пересечением границы необходимо заполнить регистрационный бланк.
-		<br>
-		Слава Аниарку!
-	</h3>
+<form class="blank">
+	<h4 class="blank-number"> Регистрационный бланк № 0003 <h4>
+ 	 <h2>Добро пожаловать на ССР Аниарку!
+ 	<br>
+ 	</h2>
+ 	<h3>
+ 	Перед пересечением границы необходимо заполнить регистрационный бланк.
+ 	<br>
+ 	Слава Аниарку!
+ 	</h3>
+ 	<br>
+ 	<br>
+ 	<br>
+	<label class="blank-p">Заполните Ваши персональные данные.</label>	
+	<br>
+<p>
+	<label class="category-head">ФИО</label>
+	<br>
+	<input id="lastname" class="data-input" type="text" name="lastname" placeholder="Фамилия">
+	<br>
+	<input id="firstname" class="data-input" type="text" name="firstname" placeholder="Имя">
+	<br>
+	<input id="middlename" class="data-input" type="text" name="middlename" placeholder="Отчество">
+</p>
+<p>
+	<label class="category-head">Самоидентичность</label>
+	<br>
+	<input id="nation" class="data-input" type="text" name="nation" placeholder="Национальность">
+	<br>
+	<input id="religion" class="data-input" type="text" name="religion" placeholder="Вероисповедание">
+</p>
+<p>
+	
+</p>
+<label class="category-head">Пожелания</label>
+	<br>	
+	<input id="nickname" class="data-input" type="text" name="nickname" placeholder="Желаемое прозвище">
 	<br>
 	<br>
-	<br>
-	<label class="blank-p">Заполните Ваши персональные данные.</label>
-	<br>
-	<p>
-		<label class="category-head">ФИО</label>
-		<br>
-		<input id="lastname" class="data-input" type="text" name="lastname"
-			   placeholder="Фамилия">
-		<br>
-		<input id="firstname" class="data-input" type="text" name="firstname"
-			   placeholder="Имя">
-		<br>
-		<input id="middlename" class="data-input" type="text" name="middlename"
-			   placeholder="Отчество">
-	</p>
-	<p>
-		<label class="category-head">Самоидентичность</label>
-		<br>
-		<input id="nation" class="data-input" type="text" name="nation"
-			   placeholder="Национальность">
-		<br>
-		<input id="religion" class="data-input" type="text" name="religion"
-			   placeholder="Вероисповедание">
-	</p>
-	<p>
-
-	</p>
-	<label class="category-head">Пожелания</label>
-	<br>
-	<input id="nickname" class="data-input" type="text" name="nickname"
-		   placeholder="Желаемое прозвище">
-	<br>
-	<br>
-	<label class="under-category-head">Желаемая роль</label>
+	<label class="under-category-head">Желаемая роль:</label> 
 	<select id="select-role">
 		<option class="select-role" value="role-rab">Работяга</option>
 		<option class="select-role" value="role-CPSU">КПСС</option>
 	</select>
-	<p>
-		<label class="category-head">Пол</label>
-	<div class="radio-sex">
-		<input id="sex-male" type="radio" name="sex" value="male">
-		<label for="sex-male"> Мужской </label>
-	</div>
-	/
-	<div class="radio-sex">
-		<input id="sex-female" type="radio" name="sex" value="female">
-		<label for="sex-female"> Женский </label>
-	</div>
-	</p>
-	<p>
-		<label class="category-head">Дата рождения</label>
-		<br>
-		<input id="birthday" class="input-date" type="date" name="birthday">
-	</p>
-	<p>
-		<button onclick="SendData()">
-			<label>Отправить</label>
-		</button>
-	</p>
-</div>
+<p>
+	<div>
+	<label class="category-head">Пол(нужное подчеркнуть):</label>	
+		<div class="radio-sex">
+			<input id="sex-male" type="radio" name="sex" value="male">
+			<label for="sex-male"> Мужской </label>
+		</div>
+		<label class="category-head"> |</label> 
+		<div class="radio-sex">
+			<input id="sex-female" type="radio" name="sex" value="female">
+			<label for="sex-female"> Женский </label>
+		</div>
+		</div>
+</p>
+<p>
+	<label class="category-head">Дата рождения</label>
+	<br>
+	<input id="birthday" class="input-date" type="date" name="birthday">
+</p>
+<p>
+<div class="submit">
+	<button onclick="SendData()">
+	<div>Отправить</div>
+	</button>
+</div>	
+</p>
+</form>
 
 <script src="../static/javascript/dataSend.js"></script>
 <script src="../static/javascript/roleLoad.js"></script>
