@@ -77,6 +77,9 @@
 	<input id="birthday" class="input-date" type="date" name="birthday">
 </p>
 <p>
+<div id="currentDate"> Дата заполнения </div>
+</p>
+<p>
 <div class="submit">
 	<button onclick="SendData()">
 	<div>Отправить</div>
@@ -84,6 +87,25 @@
 </div>	
 </p>
 </form>
+
+
+<script type="text/javascript">
+
+const reqDate = new Date
+
+const monthNames = ['Января', 'Февраля','Марта','Апреля','Мая','Июня','Июля','Августа','Сентября','Октября','Ноября','Декабря']
+
+const currentMonth = function(month) {
+return monthNames[month]
+}
+
+const currentDate = `Дата регистрации: ${reqDate.getDate()} ${currentMonth(reqDate.getMonth())} ${reqDate.getFullYear()} г.`
+	
+const currentDateHTML = document.getElementById('currentDate')
+
+currentDateHTML.innerText = currentDate
+	</script>
+
 
 <script src="../static/javascript/dataSend.js"></script>
 <script src="../static/javascript/roleLoad.js"></script>
