@@ -13,8 +13,8 @@
 		href="../static/icons/favicon-120.png">
 </head>
 <body>
-<form class="blank">
-	<h4 class="blank-number"> Регистрационный бланк № 0003 <h4>
+<div class="blank">
+	<h4 class="blank-number"> Регистрационный бланк № {{blankNumber}} <h4>
  	 <h2>Добро пожаловать на ССР Аниарку!
  	<br>
  	</h2>
@@ -75,18 +75,19 @@
 	<label class="category-head">Дата рождения</label>
 	<br>
 	<input id="birthday" class="input-date" type="date" name="birthday">
-</p>
-<p>
-<div id="currentDate"> Дата заполнения </div>
-</p>
-<p>
+
 <div class="submit">
 	<button onclick="SendData()">
 	<div>Отправить</div>
 	</button>
+	<label class="reg-date-text"> Дата заполнения:
+
+		<time class="reg-date" id="currentDate" readonly>  </time>
+	</label>
+	
 </div>	
-</p>
-</form>
+
+</div>
 
 
 <script type="text/javascript">
@@ -99,7 +100,7 @@ const currentMonth = function(month) {
 return monthNames[month]
 }
 
-const currentDate = `Дата регистрации: ${reqDate.getDate()} ${currentMonth(reqDate.getMonth())} ${reqDate.getFullYear()} г.`
+const currentDate = `${reqDate.getDate()} ${currentMonth(reqDate.getMonth())} ${reqDate.getFullYear()} г.`
 	
 const currentDateHTML = document.getElementById('currentDate')
 

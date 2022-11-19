@@ -1,162 +1,181 @@
 h2 {
-	font-family: b52;
-	font-size: 42px;
-	text-align: center;
-
+  font-family: b52;
+  font-size: 42px;
+  text-align: center;
 }
 
 h3 {
-	font-family: b52;
-	font-size: 35px;
-	text-align: center;
+  font-family: b52;
+  font-size: 35px;
+  text-align: center;
 }
 
 body {
-	background-image: url("../images/backgroud-2.png");
-	background-size: cover;
-	background-attachment: fixed; 
-	backdrop-filter: blur(3px);
+  background-image: url("../images/backgroud-2.png");
+  background-size: cover;
+  background-attachment: fixed;
+  backdrop-filter: blur(3px);
 }
 
 .blank {
-	color: black;
-	margin-left: auto;
-	margin-right: auto;
-	background-image: url("../images/paper.jpg"); 	
-	padding: 2%;
-	width: 21cm;
-	height: 29.9cm;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("../images/paper.jpg");
+  padding: 2%;
+  width: 21cm;
+  height: 29.9cm;
 }
 
 .blank-p {
-	font-family: b52;
-	font-size: 25px; 
-	font-weight: bold;
-	color: black;
-	text-align: center;
+  font-family: b52;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
 }
 
 h4 {
-	font-family: b52;
-	font-size: 24px;
-	text-align: right;
+  font-family: b52;
+  font-size: 24px;
+  text-align: right;
 }
 
 .data-input {
-	background: none;
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	border-width: 2px;
-	border-bottom-color: #2b2d2e;
-	width: 200px;
-	height: 20px;
-	padding-left: 12px;
-	font-family: sweet-mavka-script;
-	font-weight: bold;
-	font-size: 18px;
-	color: #090057;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-width: 2px;
+  border-bottom-color: #2b2d2e;
+  width: 200px;
+  height: 20px;
+  padding-left: 12px;
+  font-family: sweet-mavka-script;
+  font-weight: bold;
+  font-size: 18px;
+  color: #090057;
 }
 
-.input-date{
-	background: none;
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	border-width: 2px;
-	border-bottom-color: #2b2d2e;
-	font-size: 16px;
-
+.input-date {
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-width: 2px;
+  border-bottom-color: #2b2d2e;
+  font-size: 16px;
 }
 
 .category-head {
-	font-family: b52;
-	font-weight: bold;
-	font-size: 21px;
+  font-family: b52;
+  font-weight: bold;
+  font-size: 21px;
 }
-.under-category-head{
-	font-family: b52;
-	font-weight: bold;
-	font-size: 18px;
+.under-category-head {
+  font-family: b52;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .radio-sex {
-			color: black;
-			display: inline-block;
+  color: black;
+  display: inline-block;
 }
 
-.radio-sex input[type=radio] {
-			display: none;
+.radio-sex input[type="radio"] {
+  display: none;
 }
 
 .radio-sex label {
-			font-family: b52;
-			font-size: 21px;
-			font-weight: bold; 
-			display: inline-block;
-			width: 2cm;
-			text-align: center;
+  font-family: b52;
+  font-size: 21px;
+  font-weight: bold;
+  display: inline-block;
+  width: 2cm;
+  text-align: center;
 }
-.radio-sex input[type=radio]:checked + label {
-			border-bottom: 2px solid #090057;
-		}
-
-.submit {
-	align-content: center;
+.radio-sex input[type="radio"]:checked + label {
+  border-bottom: 2px solid #090057;
 }
 
 .current-date {
-	font-family: b52;
-	font-size: 20px;
-	text-align: right;
+  font-family: b52;
+  font-size: 20px;
+  text-align: right;
 }
 
 p {
-line-height: 1.5;
+  line-height: 1.5;
 }
 
 select {
-	background: none;
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	border-bottom: 2px;
-	border-bottom-color: #2b2d2e;
-	font-family: sweet-mavka-script;
-	font-weight: bold;
-	font-size: 18px;
-	color: #090057;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px;
+  border-bottom-color: #2b2d2e;
+  font-family: sweet-mavka-script;
+  font-weight: bold;
+  font-size: 18px;
+  color: #090057;
 }
 
-select option{
-	background-color: rgb(237, 229, 216);
+select option {
+  background-color: rgb(237, 229, 216);
+}
+
+.submit {
+  align-content: center;
+  margin-top: 25%;
 }
 
 button {
-	background: rgba(0, 0, 0, 0.06);
-	font-family: b52;
-	font-size: 20px;
-	width: 3cm;
-	height: 0.9cm;
-	margin-left: auto;
-	margin-right: 0;
-	text-align: right;
-
+  background: rgba(0, 0, 0, 0.06);
+  font-family: b52;
+  font-size: 20px;
+  width: 3cm;
+  height: 0.9cm;
+  margin-left: 5%;
+  margin-right: 0;
+  text-align: right;
 }
 
 button:active {
-	background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
-@font-face { 
-     font-family: "b52"; 
-     src: url("../fonts/b52.ttf"); 
-     font-style: normal; 
-     font-weight: normal; 
- }
- @font-face { 
-     font-family: "sweet-mavka-script"; 
-     src: url("../fonts/sweet-mavka-script.ttf"); 
-     font-style: normal; 
-     font-weight: normal; 
- }
+.reg-date {
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px;
+  border-bottom-color: #2b2d2e;
+  font-family: sweet-mavka-script;
+  font-weight: bold;
+  font-size: 18px;
+  color: #090057;
+  width: 37%;
+}
+
+.reg-date-text {
+  font-family: b52;
+  font-weight: bold;
+  font-size: 19px;
+  margin-left: 40%;
+}
+
+@font-face {
+  font-family: "b52";
+  src: url("../fonts/b52.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "sweet-mavka-script";
+  src: url("../fonts/sweet-mavka-script.ttf");
+  font-style: normal;
+  font-weight: normal;
+}

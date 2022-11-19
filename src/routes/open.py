@@ -1,4 +1,5 @@
-import logging
+import logging 
+import randint from random
 
 import aiohttp_jinja2
 from aiohttp import web
@@ -30,7 +31,7 @@ async def registration_page(request: web.Request):
     response = aiohttp_jinja2.render_template(
         template_name='registration.html',
         request=request,
-        context={}
+        context={"blankNumber":f'{randint(0, 1000):0>4}'}
     )
     return response
 
